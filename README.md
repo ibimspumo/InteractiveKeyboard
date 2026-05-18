@@ -5,85 +5,152 @@
 <h1 align="center">Interactive Keyboard</h1>
 
 <p align="center">
-Transparentes 1:1 (500×500) Overlay für TikTok-Live-Streams. Zuschauer können per
-HTTP-Webhook einzelne Tasten (WASD + Space, erweiterbar) zeitweise blockieren —
-die App schluckt die Tasten systemweit und zeigt das visuell mit rotem X, Timer
-und TikTok-Gift-Icon pro Taste.
+Transparentes Overlay für TikTok-Live-Streams. Deine Zuschauer können dir per
+Geschenk einzelne Tasten oder Maus-Tasten zeitweise sperren — die App schluckt
+die Tasten/Klicks system­weit und zeigt das mit rotem X, Countdown und dem
+Gift-Icon, das sie gerade geschickt haben.
 </p>
 
-<p align="center">
-Für Windows.
-</p>
+<p align="center"><b>Nur für Windows.</b></p>
 
 ---
 
-## Features
+## Was kann das Programm?
 
-- **Webhook-Server** (axum, Default Port 8080)
-  - `GET /block?key=W&duration=10` — Taste W für 10 Sek blockieren
-  - `GET /unblock?key=W` — Sperre sofort aufheben
-  - `GET /reset` — alle Sperren aufheben
-  - `GET /status` — JSON-Snapshot
-  - Auch per VK-Code: `/block?vk=87&duration=10`
-  - Shortcut-Form: `/w?duration=10`
-- **Transparentes 1:1-Fenster**, fix auf Aspect-Ratio gelockt
-- **Design-Modus (D)** — pro Taste: Farben, Border-Radius, Schriftgröße, Gewicht, Letter-Spacing
-- **Edit-Modus (E)** — pro Taste: Position des Gift-Icons relativ zur Tastenmitte verschieben + skalieren
-- **ESC-Menü** mit Settings (Webhook, Tasten, Audio, Block-Verhalten, Updates, Reset)
-- **Mehrfach-Trigger-Verhalten** wählbar: addieren / zurücksetzen / ignorieren
-- **TikTok-Gift-Bibliothek** mit ~500 Geschenken (catalog.json + WebP-Sprites)
-- **Sound-System** mit per-Taste-Override (Block / Unblock) + globalem Default
-- **Auto-Update** via GitHub Releases + Tauri Updater mit minisign-Signatur
-- **NSIS-Installer** für Windows, via GitHub Actions
+Du legst es als transparentes Fenster über dein Spiel (oder in OBS). Im Stream
+sieht man eine kleine Tastatur (Standard: **WASD + Space**) und/oder eine
+Maus mit Links-/Rechts-Klick und Mausrad. Sobald jemand in deinem TikTok-Live
+ein Geschenk sendet, kannst du dein Tool (TikFinity, Streamerbot, …) auf den
+Webhook zeigen lassen — die App sperrt dann für die eingestellte Zeit die
+zugeordnete Taste/Klick.
 
-## Schnellstart (Dev)
+Beispiele:
 
-```powershell
-npm install
-npm run start          # Tauri-Dev (Vite + Rust)
+<table>
+  <tr>
+    <td align="center" width="100"><img src="src/assets/defaults/graphics/gifts/gift_rose.webp" width="64" alt="Rose" /></td>
+    <td><b>Rose</b> → blockiere <code>W</code> für 10 Sekunden → der Streamer kann nicht mehr vorwärts laufen.</td>
+  </tr>
+  <tr>
+    <td align="center"><img src="src/assets/defaults/graphics/gifts/gift_tiktok_universe.webp" width="64" alt="TikTok Universe" /></td>
+    <td><b>TikTok Universe</b> → blockiere alle <code>WASD</code> für 60 Sekunden → totaler Kontrollverlust.</td>
+  </tr>
+  <tr>
+    <td align="center"><img src="src/assets/defaults/graphics/gifts/gift_heart.webp" width="64" alt="Heart" /></td>
+    <td><b>Heart</b> → blockiere den Linksklick für 5 Sekunden → kein Schießen.</td>
+  </tr>
+</table>
+
+Die App schluckt die Tasten richtig auf System-Ebene — egal ob du gerade
+Fortnite, Valorant, ein Browserspiel oder Notepad offen hast.
+
+## Drei Layouts
+
+In den Einstellungen → **Layout** wählst du:
+- **WASD Only** — nur die Tastatur (quadratisches 1:1 Fenster).
+- **Maus Only** — nur die Maus mit Links/Rechts-Klick und Mausrad.
+- **WASD + Maus** — beides nebeneinander im Querformat.
+
+Das Fenster snappt automatisch auf die richtige Form.
+
+## Wie sieht's im Stream aus?
+
+- **Komplett transparenter Hintergrund** — perfekt für OBS-Capture, du siehst
+  nichts vom Programmfenster, nur die Tasten und die Maus.
+- **Rotes X + Countdown** auf gesperrten Tasten/Klicks.
+- **Gift-Icon** kann pro Taste hinterlegt werden — Zuschauer sehen direkt,
+  welches Geschenk wofür zuständig ist.
+- **Block/Unblock-Sounds** — eingebaute Standard-Sounds, oder eigene
+  einfügen (pro Taste oder global).
+
+## Loslegen
+
+1. Installer von der **Releases**-Seite laden und installieren.
+2. App starten. Das Fenster ist transparent — du siehst nur die Tastatur/Maus.
+3. **ESC** drücken → Einstellungen öffnen.
+4. Im Tab **Webhook** den Port checken (Standard **8080**) und ob es im
+   lokalen Netz erreichbar sein soll (Toggle "Im lokalen Netzwerk freigeben").
+5. Im Tab **Tasten & Gifts** für jede Taste / jeden Maus-Button:
+   - das gewünschte TikTok-Geschenk auswählen
+   - die fertige Webhook-URL **kopieren** und in dein Tool (TikFinity etc.) einfügen
+6. ESC nochmal → fertig. Fenster über dein Spiel positionieren und in OBS als
+   "Fenstererfassung" aufnehmen.
+
+## Bedienung im Overlay
+
+| Taste | Was passiert |
+|-------|--------------|
+| **ESC** | Einstellungen öffnen/schließen |
+| **D** | Design-Modus — Farben, Form, Schriftgrößen ändern (Klick auf die Taste/Maus) |
+| **E** | Edit-Modus — Geschenk-Icons verschieben/skalieren, Tasten + Maus-Position layouten |
+
+Das Fenster lässt sich an einer freien Stelle einfach mit der Maus ziehen. Die
+Größe ist über die Fensterränder anpassbar; das Seitenverhältnis bleibt fix.
+
+## Webhook-URLs
+
+Das ist das, was du in dein TikTok-Tool einträgst. Du musst hier nichts selbst
+zusammenbauen — in den Einstellungen unter **Tasten & Gifts** gibt es bei jeder
+Taste einen **Kopieren**-Button für die komplette URL inkl. Default-Dauer.
+
+Format der URL:
+```
+http://localhost:8080/block?key=W&duration=10
 ```
 
-App startet → Webhook-Server lauscht auf `http://127.0.0.1:8080`. Test im
-Browser: `http://127.0.0.1:8080/w?duration=5` → die W-Taste wird 5 Sekunden
-blockiert.
+Die wichtigsten Keys:
+- **Tasten:** `W`, `A`, `S`, `D`, `SPACE`, … (oder `space`)
+- **Maus:** `LMB` (Linksklick), `RMB` (Rechtsklick), `WHEEL` (Mausrad)
 
-## Release
+Zusätzlich praktisch:
+- `/unblock?key=W` — Sperre sofort aufheben
+- `/reset` — alle Sperren aufheben
 
-1. Version in den vier Stellen hochsetzen:
-   - `package.json`
-   - `src-tauri/Cargo.toml`
-   - `src-tauri/tauri.conf.json`
-   - `src/lib/version.ts`
-2. Commit + Tag:
-   ```powershell
-   git commit -am "Bump v0.2.0"
-   git tag v0.2.0
-   git push origin main --tags
-   ```
-3. GitHub Actions baut den NSIS-Installer + signiertes `latest.json` und legt
-   ein Draft-Release an → veröffentlicht es nach erfolgreichem Build automatisch.
+Wenn du im lokalen Netzwerk auf die App von einem anderen Gerät zugreifen
+willst (z.B. Handy als Trigger), aktiviere "Im lokalen Netzwerk freigeben" in
+den Webhook-Einstellungen. Die kopierten URLs zeigen dann automatisch deine
+LAN-IP.
+
+## Mausrad-Verhalten
+
+Das **WHEEL**-Geschenk kann zwei Dinge gleichzeitig sperren: das **Klicken**
+auf das Mausrad (= Mittelklick) UND das **Scrollen**. In den Einstellungen unter
+**Layout** kannst du beide unabhängig deaktivieren:
+- Nur Mittelklick sperren, Scrollen zulassen
+- Nur Scrollen sperren, Mittelklick zulassen
+- Oder beides — Standard
+
+## Mehrfach-Trigger-Verhalten
+
+Was passiert, wenn während einer aktiven Sperre noch ein Geschenk reinkommt?
+Wählbar in den Einstellungen → **Block-Verhalten**:
+- **Addieren** (Standard) — Restzeit + neue Dauer. So sammeln sich Geschenke an.
+- **Zurücksetzen** — Restzeit wird auf die neue Dauer überschrieben.
+- **Ignorieren** — weitere Geschenke laufen ins Leere bis die Sperre vorbei ist.
 
 ## Anti-Cheat-Schutz
 
-Die App erkennt bekannte Anti-Cheats (Vanguard, EAC, BattlEye, FACEIT) und
-**verwirft** Block-Requests, wenn einer läuft. Damit wird kein Hook in einer
-Anti-Cheat-Umgebung gesetzt → kein Ban-Risiko durch dieses Tool.
+Wenn ein bekanntes Anti-Cheat-System läuft (**Vanguard** für Valorant/LoL,
+**EAC** für Fortnite/Apex, **BattlEye** für R6/PUBG, **FACEIT**), verwirft die
+App alle Block-Requests automatisch. Es wird nichts geschluckt, kein Ban-Risiko.
 
-## Webhook-Beispiele
+Wichtig: das ist eine **Schutz-Funktion**, kein Versprechen. Spiel keine
+kompetitiven Modi mit so einer Software an. Für PvE, Sandbox-Spiele,
+Browser-Spiele und alles ohne Anti-Cheat ist es safe.
 
-```bash
-# Taste W 30 Sekunden blockieren
-curl "http://127.0.0.1:8080/block?key=W&duration=30"
+## Updates
 
-# Identisch, kurzform
-curl "http://127.0.0.1:8080/w?duration=30"
+Die App prüft beim Start automatisch auf neue Versionen über GitHub-Releases.
+Wenn ein Update verfügbar ist, wird es im Hintergrund geladen und installiert
+sich beim nächsten Start.
 
-# Per ms
-curl "http://127.0.0.1:8080/block?key=Space&ms=2500"
+## Hinweise
 
-# Alles aufheben
-curl "http://127.0.0.1:8080/reset"
-```
+- Beim ersten Start zeigt Windows SmartScreen möglicherweise eine Warnung
+  ("Computer geschützt" / "Trotzdem ausführen") — das liegt daran, dass kein
+  Code-Signing-Zertifikat verwendet wird. Die App ist trotzdem funktional.
+- Die Einstellungen werden im Windows-AppData gespeichert
+  (`%APPDATA%/de.agentz.interactivekeyboard/settings.json`).
 
 ## Lizenz
 

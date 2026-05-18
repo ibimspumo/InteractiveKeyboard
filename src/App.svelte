@@ -154,7 +154,9 @@
   }
 
   async function onStatusRequest(replyId: string) {
-    const ac = await invoke<boolean>("anticheat_running").catch(() => false);
+    const ac = cfg.anticheatEnabled
+      ? await invoke<boolean>("anticheat_running").catch(() => false)
+      : false;
     const status = buildStatus(ac);
     await invoke("status_reply", { replyId, status }).catch(console.error);
   }
@@ -186,6 +188,10 @@
   }
 
   function onWebhookBlock(keyId: string, durationSec: number) {
+    if (!cfg.anticheatEnabled) {
+      applyBlock(keyId, durationSec);
+      return;
+    }
     invoke<boolean>("anticheat_running")
       .then((active) => {
         if (active) {

@@ -139,6 +139,7 @@ export interface AppSettings {
   multiTriggerMode: MultiTriggerMode;
   maxBlockSeconds: number;
   defaultBlockSeconds: number;
+  anticheatEnabled: boolean;
 
   // ===== Audio =====
   volumeDb: number;

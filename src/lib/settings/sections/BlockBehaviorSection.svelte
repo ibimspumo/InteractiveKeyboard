@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { AppSettings, MultiTriggerMode } from "../../types";
-  import { Callout, Card, Field, NumberInput, SectionHeader } from "../../ui";
+  import { Callout, Card, Field, NumberInput, SectionHeader, Toggle } from "../../ui";
 
   export let cfg: AppSettings;
 
@@ -60,6 +60,20 @@
   </Field>
   {#if cfg.multiTriggerMode !== "add"}
     <Callout variant="info">Nur im „Addieren"-Modus relevant.</Callout>
+  {/if}
+</Card>
+
+<Card title="Anti-Cheat-Schutz">
+  <Field
+    label="Block-Requests verwerfen, wenn ein Anti-Cheat läuft"
+    hint="Verhindert Bans in Valorant, Fortnite, R6 & Co. — solange ein bekannter Anti-Cheat-Prozess (EAC, Vanguard, BattlEye, …) läuft, werden eingehende Webhook-Blocks stillschweigend ignoriert. Nur deaktivieren, wenn du genau weißt was du tust."
+  >
+    <Toggle bind:checked={cfg.anticheatEnabled} label={cfg.anticheatEnabled ? "Aktiv" : "Deaktiviert"} />
+  </Field>
+  {#if !cfg.anticheatEnabled}
+    <Callout variant="warn">
+      Achtung: Ohne diesen Schutz können Blocks während eines Anti-Cheat-geschützten Spiels ausgeführt werden — das kann zu einem Account-Bann führen.
+    </Callout>
   {/if}
 </Card>
 

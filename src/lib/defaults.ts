@@ -238,6 +238,7 @@ export function defaultSettings(): AppSettings {
     multiTriggerMode: "add",
     maxBlockSeconds: 300,
     defaultBlockSeconds: 5,
+    anticheatEnabled: true,
 
     volumeDb: -6,
     globalBlockSoundPath: null,

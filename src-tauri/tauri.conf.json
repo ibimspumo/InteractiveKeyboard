@@ -53,7 +53,7 @@
       "endpoints": [
         "https://github.com/ibimspumo/InteractiveKeyboard/releases/latest/download/latest.json"
       ],
-      "pubkey": "",
+      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDU1OTEyQjQ1MDg3MEI0OTQKUldTVXRIQUlSU3VSVlRNK1BPQ1ZNWlJ4WjBaSkJMOFo3ek1ZMzZ4dnMvZ0pDNkEwczdZYXlEcjIK",
       "dialog": false
     }
   }

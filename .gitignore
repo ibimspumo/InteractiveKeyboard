@@ -14,6 +14,12 @@ yarn.lock
 .env.*
 !.env.example
 
+# Tauri-Updater Signing-Keys (privater Key gehört in GitHub-Secrets, nicht ins Repo)
+src-tauri/tauri-signing-key.key
+src-tauri/tauri-signing-key.key.pub
+*.key
+!**/capabilities/*.json
+
 # Tauri
 src-tauri/target/
 src-tauri/gen/

@@ -175,10 +175,11 @@ unabhängig und funktioniert.
 
 ## Bekannte Stolperfallen
 
-- **Tauri-Updater `pubkey` leer**: muss vor erstem Release durch den Output
-  von `npx @tauri-apps/cli signer generate` ersetzt werden (Public-Key-Base64).
-  Privater Key kommt als GitHub-Secret. Bevor das nicht passiert, schlägt der
-  Updater-Check stillschweigend fehl.
+- **Tauri-Updater `pubkey`**: ist seit v0.1.0 gesetzt. Der zugehörige private
+  Key liegt **nur** als GitHub-Secret `TAURI_SIGNING_PRIVATE_KEY` (+ leeres
+  Password-Secret) und darf nicht ins Repo. Lokale Kopie ggf. unter
+  `src-tauri/tauri-signing-key.key` (gitignored). Wer den Key verliert, kann
+  keine Updates mehr signieren — dann nur noch frische Installer.
 - **Tauri-Plugins**: Bei jedem neuen Plugin sowohl Cargo + JS-Package + Capability
   ergänzen, sonst Build-Fehler.
 - **CSS transform + drag region**: funktioniert, weil Hit-Testing transformierte

@@ -1,0 +1,26 @@
+node_modules/
+dist/
+.svelte-kit/
+.DS_Store
+*.log
+
+# Wir nutzen npm — pnpm-/yarn-Lockfiles nicht committen,
+# sonst aktiviert tauri-action im CI den falschen Package-Manager.
+pnpm-lock.yaml
+yarn.lock
+
+# Secrets
+.env
+.env.*
+!.env.example
+
+# Tauri
+src-tauri/target/
+src-tauri/gen/
+src-tauri/WixTools/
+
+# Tool-/IDE-Verzeichnisse
+.claude/
+.vscode/
+.idea/
+

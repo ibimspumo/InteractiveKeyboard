@@ -1,0 +1,61 @@
+/* Design Tokens — Single Source of Truth for Settings-UI Styling.
+   Verwendet im gesamten src/lib/ui und src/lib/settings.
+   Wenn du etwas an der visuellen Identität ändern willst, mach es hier. */
+
+:root {
+  /* === Farben === */
+  --c-bg-0: #0b0c10;          /* Panel-Hintergrund */
+  --c-bg-1: #14161d;          /* Sidebar / Header */
+  --c-bg-2: #1a1d26;          /* Cards */
+  --c-bg-3: #232730;          /* Hover / Inputs */
+  --c-bg-4: #2c313d;          /* Active / stronger hover */
+
+  --c-border: #2a2f3a;
+  --c-border-strong: #3a414f;
+
+  --c-text: #e7ebf3;
+  --c-text-muted: #9aa3b2;
+  --c-text-dim: #6b7385;
+
+  --c-accent: #4f7cff;        /* Primary action */
+  --c-accent-hover: #6a90ff;
+  --c-accent-soft: rgba(79, 124, 255, 0.14);
+  --c-accent-border: rgba(79, 124, 255, 0.45);
+
+  --c-success: #2ecc71;
+  --c-success-soft: rgba(46, 204, 113, 0.12);
+  --c-warn: #e0a64a;
+  --c-warn-soft: rgba(224, 166, 74, 0.12);
+  --c-danger: #ef5a5a;
+  --c-danger-soft: rgba(239, 90, 90, 0.12);
+
+  /* === Schriftgrößen === */
+  --fs-xs: 11px;
+  --fs-sm: 12px;
+  --fs-md: 13px;
+  --fs-lg: 15px;
+  --fs-xl: 18px;
+  --fs-2xl: 22px;
+
+  /* === Spacing-Skala === */
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-5: 20px;
+  --sp-6: 24px;
+  --sp-8: 32px;
+
+  /* === Radii === */
+  --r-sm: 4px;
+  --r-md: 8px;
+  --r-lg: 12px;
+
+  /* === Sonstiges === */
+  --shadow-card: 0 1px 0 rgba(255, 255, 255, 0.03) inset, 0 4px 12px rgba(0, 0, 0, 0.25);
+  --duration: 120ms;
+
+  --font-ui: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-mono: ui-monospace, "JetBrains Mono", "Cascadia Code", Consolas, monospace;
+  --font-display: "LuckiestGuy", system-ui, sans-serif;
+}
